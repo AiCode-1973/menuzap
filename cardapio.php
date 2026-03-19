@@ -39,16 +39,17 @@ foreach ($produtos as $p) {
 <!-- Banner e Header do Restaurante -->
 <?php 
     $headerStyle = "bg-primary";
-    if (!empty($restaurante['banner'])) {
+    $temBanner = !empty($restaurante['banner']) && empty($restaurante['ocultar_banner']);
+    if ($temBanner) {
         $bannerUrl = htmlspecialchars($restaurante['banner']);
         $headerStyle = "bg-gray-900 bg-center bg-cover bg-no-repeat";
     }
 ?>
 <div class="<?= $headerStyle ?> text-white py-12 md:py-16 min-h-[400px] md:min-h-[500px] flex items-center shadow-md relative overflow-hidden" 
-     <?php if(!empty($restaurante['banner'])): ?> style="background-image: url('uploads/<?= $bannerUrl ?>');" <?php endif; ?>>
+     <?php if($temBanner): ?> style="background-image: url('uploads/<?= $bannerUrl ?>');" <?php endif; ?>>
     
     <!-- Efeito pattern (só se não tiver banner) -->
-    <?php if(empty($restaurante['banner'])): ?>
+    <?php if(!$temBanner): ?>
     <div class="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMSI+PC9yZWN0Pgo8cGF0aCBkPSJNMCAwTDggOFoiIHN0cm9rZT0iI2ZmZiIHN0cm9rZS13aWR0aD0iMSI+PC9wYXRoPjwvc3ZnPg==')]"></div>
     <?php else: ?>
     <div class="absolute inset-0 bg-black bg-opacity-40"></div>

@@ -31,6 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $ocultar_nome = isset($_POST['ocultar_nome']) ? 1 : 0;
         $ocultar_mensagem = isset($_POST['ocultar_mensagem']) ? 1 : 0;
         $ocultar_logo = isset($_POST['ocultar_logo']) ? 1 : 0;
+        $ocultar_banner = isset($_POST['ocultar_banner']) ? 1 : 0;
         $ativo = isset($_POST['ativo']) ? 1 : 0;
         
         // Tratamento Logo
@@ -65,8 +66,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
         
-        $stmt = $pdo->prepare("UPDATE restaurante SET nome=?, cor_primaria=?, cor_secundaria=?, horario_funcionamento=?, mensagem_boasvindas=?, ativo=?, logo=?, banner=?, ocultar_nome=?, ocultar_mensagem=?, ocultar_logo=? WHERE id=1");
-        $stmt->execute([$nome, $cor_primaria, $cor_secundaria, $horario, $mensagem, $ativo, $logo, $banner, $ocultar_nome, $ocultar_mensagem, $ocultar_logo]);
+        $stmt = $pdo->prepare("UPDATE restaurante SET nome=?, cor_primaria=?, cor_secundaria=?, horario_funcionamento=?, mensagem_boasvindas=?, ativo=?, logo=?, banner=?, ocultar_nome=?, ocultar_mensagem=?, ocultar_logo=?, ocultar_banner=? WHERE id=1");
+        $stmt->execute([$nome, $cor_primaria, $cor_secundaria, $horario, $mensagem, $ativo, $logo, $banner, $ocultar_nome, $ocultar_mensagem, $ocultar_logo, $ocultar_banner]);
         redirect('configuracoes.php?msg=sucesso');
     }
 }
@@ -170,7 +171,7 @@ if (!$rest) {
         
         <div class="border-t pt-4 mt-6">
             <h3 class="font-bold text-gray-800 text-lg mb-3">Opções de Exibição / Status do Sistema</h3>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-6">
                 <label class="flex items-start cursor-pointer bg-gray-50 p-3 rounded border">
                     <input type="checkbox" name="ativo" <?= $rest['ativo'] ? 'checked' : '' ?> class="form-checkbox h-5 w-5 text-red-600 rounded mt-0.5">
                     <div class="ml-3">
@@ -199,7 +200,15 @@ if (!$rest) {
                     <input type="checkbox" name="ocultar_mensagem" <?= $rest['ocultar_mensagem'] ?? 0 ? 'checked' : '' ?> class="form-checkbox h-5 w-5 text-red-600 rounded mt-0.5">
                     <div class="ml-3">
                         <span class="block text-gray-800 font-bold text-sm">Inibir Msg</span>
-                        <span class="text-xs text-gray-500">Ocultar mensagem de boas-vindas.</span>
+                        <span class="text-xs text-gray-500">Ocultar boas-vindas.</span>
+                    </div>
+                </label>
+
+                <label class="flex items-start cursor-pointer bg-gray-50 p-3 rounded border">
+                    <input type="checkbox" name="ocultar_banner" <?= $rest['ocultar_banner'] ?? 0 ? 'checked' : '' ?> class="form-checkbox h-5 w-5 text-red-600 rounded mt-0.5">
+                    <div class="ml-3">
+                        <span class="block text-gray-800 font-bold text-sm">Inibir Capa</span>
+                        <span class="text-xs text-gray-500">Ocultar img de fundo.</span>
                     </div>
                 </label>
             </div>

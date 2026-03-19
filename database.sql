@@ -12,12 +12,13 @@ CREATE TABLE IF NOT EXISTS `restaurante` (
   `ocultar_nome` tinyint(1) DEFAULT 0,
   `ocultar_mensagem` tinyint(1) DEFAULT 0,
   `ocultar_logo` tinyint(1) DEFAULT 0,
+  `ocultar_banner` tinyint(1) DEFAULT 0,
   `ativo` tinyint(1) DEFAULT 1,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `restaurante` (`id`, `nome`, `logo`, `banner`, `cor_primaria`, `cor_secundaria`, `horario_funcionamento`, `mensagem_boasvindas`, `ocultar_nome`, `ocultar_mensagem`, `ocultar_logo`, `ativo`) 
-VALUES (1, 'Meu Restaurante', NULL, NULL, '#EF4444', '#DC2626', 'Aberto de Terça a Domingo', 'Bem-vindo ao nosso cardápio digital!', 0, 0, 0, 1) 
+INSERT INTO `restaurante` (`id`, `nome`, `logo`, `banner`, `cor_primaria`, `cor_secundaria`, `horario_funcionamento`, `mensagem_boasvindas`, `ocultar_nome`, `ocultar_mensagem`, `ocultar_logo`, `ocultar_banner`, `ativo`) 
+VALUES (1, 'Meu Restaurante', NULL, NULL, '#EF4444', '#DC2626', 'Aberto de Terça a Domingo', 'Bem-vindo ao nosso cardápio digital!', 0, 0, 0, 0, 1) 
 ON DUPLICATE KEY UPDATE id=id;
 
 CREATE TABLE IF NOT EXISTS `categorias` (
