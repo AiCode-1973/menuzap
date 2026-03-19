@@ -1,0 +1,51 @@
+/* Estilos customizados para além do Tailwind */
+
+body {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Animação suave para carrinho modal */
+#cartModal {
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+}
+
+#cartModal.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+#cartModal > div {
+    transition: transform 0.3s ease-out;
+    transform: translateX(100%);
+}
+
+#cartModal.show > div {
+    transform: translateX(0%);
+}
+
+/* Ocultar barra de scroll padrão */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Overlay do Esgotado */
+.img-esgotado {
+    filter: grayscale(100%);
+    opacity: 0.6;
+}
+
+.card-esgotado {
+    border-color: #d1d5db;
+}
