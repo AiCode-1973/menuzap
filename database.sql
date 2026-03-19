@@ -4,16 +4,20 @@ CREATE TABLE IF NOT EXISTS `restaurante` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,
   `logo` varchar(255) DEFAULT NULL,
+  `banner` varchar(255) DEFAULT NULL,
   `cor_primaria` varchar(20) DEFAULT '#EF4444',
   `cor_secundaria` varchar(20) DEFAULT '#DC2626',
   `horario_funcionamento` varchar(255) DEFAULT 'Aberto de Terça a Domingo',
   `mensagem_boasvindas` text DEFAULT NULL,
+  `ocultar_nome` tinyint(1) DEFAULT 0,
+  `ocultar_mensagem` tinyint(1) DEFAULT 0,
+  `ocultar_logo` tinyint(1) DEFAULT 0,
   `ativo` tinyint(1) DEFAULT 1,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `restaurante` (`id`, `nome`, `logo`, `cor_primaria`, `cor_secundaria`, `horario_funcionamento`, `mensagem_boasvindas`, `ativo`) 
-VALUES (1, 'Meu Restaurante', NULL, '#EF4444', '#DC2626', 'Aberto de Terça a Domingo', 'Bem-vindo ao nosso cardápio digital!', 1) 
+INSERT INTO `restaurante` (`id`, `nome`, `logo`, `banner`, `cor_primaria`, `cor_secundaria`, `horario_funcionamento`, `mensagem_boasvindas`, `ocultar_nome`, `ocultar_mensagem`, `ocultar_logo`, `ativo`) 
+VALUES (1, 'Meu Restaurante', NULL, NULL, '#EF4444', '#DC2626', 'Aberto de Terça a Domingo', 'Bem-vindo ao nosso cardápio digital!', 0, 0, 0, 1) 
 ON DUPLICATE KEY UPDATE id=id;
 
 CREATE TABLE IF NOT EXISTS `categorias` (
@@ -83,5 +87,5 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
 
 -- Inserir usuário Admin padrão na primeira execução: (Senha: admin123)
 INSERT INTO `usuarios` (`nome`, `email`, `senha_hash`, `perfil`) 
-SELECT 'Administrador', 'admin@admin.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin' 
+SELECT 'Administrador', 'admin@admin.com', '$2y$10$QDbfL3GyMO5NGVGglJsyl.3Ku3eKItQkRqtdV.gCRJaCs3ba9uGUoK', 'admin' 
 WHERE NOT EXISTS (SELECT id FROM `usuarios` WHERE email = 'admin@admin.com');

@@ -37,25 +37,45 @@ foreach ($produtos as $p) {
 ?>
 
 <!-- Banner e Header do Restaurante -->
-<div class="bg-primary text-white py-6 shadow-md relative overflow-hidden">
-    <!-- Efeito de pattern sutil -->
+<?php 
+    $headerStyle = "bg-primary";
+    if (!empty($restaurante['banner'])) {
+        $bannerUrl = htmlspecialchars($restaurante['banner']);
+        $headerStyle = "bg-gray-900 bg-center bg-cover bg-no-repeat";
+    }
+?>
+<div class="<?= $headerStyle ?> text-white py-12 md:py-16 min-h-[400px] md:min-h-[500px] flex items-center shadow-md relative overflow-hidden" 
+     <?php if(!empty($restaurante['banner'])): ?> style="background-image: url('uploads/<?= $bannerUrl ?>');" <?php endif; ?>>
+    
+    <!-- Efeito pattern (só se não tiver banner) -->
+    <?php if(empty($restaurante['banner'])): ?>
     <div class="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMSI+PC9yZWN0Pgo8cGF0aCBkPSJNMCAwTDggOFoiIHN0cm9rZT0iI2ZmZiIHN0cm9rZS13aWR0aD0iMSI+PC9wYXRoPjwvc3ZnPg==')]"></div>
+    <?php else: ?>
+    <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+    <?php endif; ?>
+    
     <div class="container mx-auto px-4 flex flex-col items-center relative z-10">
-        <?php if (!empty($restaurante['logo'])): ?>
-            <img src="uploads/<?= htmlspecialchars($restaurante['logo']) ?>" alt="Logo" class="w-24 h-24 rounded-full border-4 border-white shadow-lg mb-3 object-cover bg-white">
-        <?php else: ?>
-            <div class="w-24 h-24 rounded-full border-4 border-white shadow-lg mb-3 bg-white flex items-center justify-center text-primary text-3xl font-bold">
-                <?= substr($restaurante['nome'], 0, 1) ?>
-            </div>
+        <?php if(empty($restaurante['ocultar_logo'])): ?>
+            <?php if (!empty($restaurante['logo'])): ?>
+                <img src="uploads/<?= htmlspecialchars($restaurante['logo']) ?>" alt="Logo" class="w-24 h-24 rounded-full border-4 border-white shadow-lg mb-3 object-cover bg-white">
+            <?php else: ?>
+                <div class="w-24 h-24 rounded-full border-4 border-white shadow-lg mb-3 bg-white flex items-center justify-center text-primary text-3xl font-bold">
+                    <?= substr($restaurante['nome'], 0, 1) ?>
+                </div>
+            <?php endif; ?>
         <?php endif; ?>
-        <h1 class="text-2xl font-bold tracking-wide text-center"><?= htmlspecialchars($restaurante['nome']) ?></h1>
+        <?php if(empty($restaurante['ocultar_nome'])): ?>
+            <h1 class="text-2xl font-bold tracking-wide text-center mt-2"><?= htmlspecialchars($restaurante['nome']) ?></h1>
+        <?php endif; ?>
+        
         <?php if ($mesa_num && $mesa_id): ?>
-            <span class="bg-white text-primary text-xs font-bold px-3 py-1 rounded-full mt-2 shadow">Mesa <?= $mesa_num ?></span>
+            <span class="bg-white text-primary text-xs font-bold px-3 py-1 rounded-full mt-3 shadow">Mesa <?= $mesa_num ?></span>
         <?php elseif ($mesa_num): ?>
-            <span class="bg-red-900 text-white text-xs font-bold px-3 py-1 rounded-full mt-2">Mesa não cadastrada</span>
+            <span class="bg-red-900 text-white text-xs font-bold px-3 py-1 rounded-full mt-3">Mesa não cadastrada</span>
         <?php endif; ?>
-        <?php if(!empty($restaurante['mensagem_boasvindas'])): ?>
-            <p class="text-sm mt-3 opacity-90 text-center max-w-md"><?= htmlspecialchars($restaurante['mensagem_boasvindas']) ?></p>
+        
+        <?php if(!empty($restaurante['mensagem_boasvindas']) && empty($restaurante['ocultar_mensagem'])): ?>
+            <p class="text-sm mt-3 opacity-90 text-center max-w-md px-2 bg-black bg-opacity-30 rounded-lg py-1"><?= htmlspecialchars($restaurante['mensagem_boasvindas']) ?></p>
         <?php endif; ?>
     </div>
 </div>
